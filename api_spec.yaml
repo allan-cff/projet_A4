@@ -1,0 +1,212 @@
+openapi: 3.0.4
+info:
+  title: API Projet BigData/IA/Web groupe 1
+  description: API permettant la gestion et l'analyse d'arbres via des méthodes Big Data et IA.
+  version: 0.0.1
+externalDocs:
+  description: Repo Github
+  url: https://github.com/allan-cff/projet_A4
+servers:
+  - url: https://isen-de-merde
+tags:
+  - name: tree
+    description: Requêtes de manipulation des arbres
+
+paths:
+  /tree:
+    get:
+      tags:
+        - tree
+      summary: Récupérer les arbres
+      description: Retrieves a list of trees.
+      operationId: getTrees
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tree'
+        '400':
+          description: Invalid request
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    post:
+      tags:
+        - tree
+      summary: Ajouter un nouvel arbre à la base de données
+      description: Add a new tree, specifying all its information.
+      operationId: addTree
+      requestBody:
+        description: Tree information
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tree'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TreeSuccess'
+        '400':
+          description: Invalid input
+
+  /tree/predictAge:
+    get:
+      tags:
+        - tree
+      summary: Prédire l'âge de l'arbre
+      description: Predicts tree age based on height.
+      operationId: predictAge
+      parameters:
+        - name: height
+          in: query
+          description: Tree height in meters
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tree'
+        '400':
+          description: Invalid query parameter
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /tree/predictCluster:
+    get:
+      tags:
+        - tree
+      summary: Prédire le cluster de l'arbre
+      description: Predicts tree age based on height.
+      operationId: predictCluster
+      parameters:
+        - name: height
+          in: query
+          description: Tree height in meters
+          required: false
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tree'
+        '400':
+          description: Invalid query parameter
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /tree/{id}:
+    get:
+      tags:
+        - tree
+      summary: Récupérer un arbre depuis son ID
+      description: Returns a single tree by its ID.
+      operationId: getTree
+      parameters:
+        - name: id
+          in: path
+          description: ID of tree to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tree'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Tree not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Tree:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: chêne
+        photoUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+          example: ["https://example.com/images/tree1.jpg"]
+
+    TreeSuccess:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+  requestBodies:
+    Tree:
+      description: Tree object to add to the database
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Tree'
