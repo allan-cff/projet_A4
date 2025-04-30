@@ -1,57 +1,29 @@
+let PATH_REQUEST = 'http://etu0915.projets.isen-ouest.info/back/api.php'
+console.log('js trouvé' + PATH_REQUEST)
 
-// Requete récupération de tous les arbreset toutes elurs valeurs
 
+
+// Requete récupération de tous les arbres et toutes leurs valeurs
 function getTree(){
     // Récupération de l'url
-    let path = window.location.href.split('/'); 
-    path.pop();                      
-    path.push('php') 
-    path.push('request.php')         
-    path.push('getTree')           
-    url = path.join('/')                
-    console.log(url);
+    let path = PATH_REQUEST + '/tree'               
+    console.log(path);
 
     // requete AJAX : 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // En-tête pour envoyer des données URL-encodées
-    //console.log('afterexecution');
+    xhr.open('GET', path, true);
+    xhr.setRequestHeader('Authorization', 'Basic ZXR1MDkxNTpvbmpjcG5haA==');
+    console.log('afterexecution');
     xhr.onload= function() {
+        console.log('cc')
         console.log(xhr.status);
+        
         //console.log(xhr);
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
-        } else {
+        } else if(xhr.status){
             console.log('erreur');
         }
-    }
-}
-
-
-// Insérer un arbre
-
-function insertTree(){
-    // Récupération de l'url
-    let path = window.location.href.split('/'); 
-    path.pop();                      
-    path.push('php') 
-    path.push('request.php')         
-    path.push('getTree')           
-    url = path.join('/')                
-    console.log(url);
-
-    // requete AJAX : 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // En-tête pour envoyer des données URL-encodées
-    //console.log('afterexecution');
-    xhr.onload= function() {
-        console.log(xhr.status);
-        //console.log(xhr);
-        if (xhr.status === 200) {
-            let result = JSON.parse(xhr.responseText);
-        } else {
-            console.log('erreur');
-        }
-    }
+    };
+    xhr.send();
 }
