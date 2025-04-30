@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Index</title>
+        <!-- Page de style de bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <!-- Page de style du projet -->
+        <link href="./src/style/index.css" rel="stylesheet">
+    </head>
+    <body>
+      <!-- Navbar commune aux différentes pages -->
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="index.html" >Accueil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="addTree.html" style="font-weight: bold;">Ajouter un arbre </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Visualisation des Arbres </a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+
+        <!-- Partie principale -->
+        
+        <div class="container pb-5">
+            <h2 class="text-center mb-4"><u>Visualisation des arbres</u></h2>
+      
+            <!-- Section carte + légende -->
+            <div class="d-flex flex-column align-items-center p-4 bg-white rounded-4 shadow mb-5">
+              <div class="row w-100">
+                <div class="col-md-8">
+                  <img src="./src/image/SaintQuentin_map.png" alt="Carte de St Quentin" class="img-fluid rounded w-100" />
+                </div>
+                <div class="col-md-4 d-flex flex-column justify-content-center">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="labelOption" id="label1">
+                    <label class="form-check-label" for="label1">Label</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="labelOption" id="label2">
+                    <label class="form-check-label" for="label2">Label</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="labelOption" id="label3">
+                    <label class="form-check-label" for="label3">Label</label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="labelOption" id="label4">
+                    <label class="form-check-label" for="label4">Label</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <!-- Tableau -->
+            <h5 class="mb-3">Liste des arbres de la ville de St Quentin</h5>
+            <div class="table-responsive mb-4">
+              <table class="table table-bordered align-middle text-center bg-white shadow-sm">
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>XY</th>
+                    <th>Espèce</th>
+                    <th>taille</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>[33.38;33.38]</td>
+                    <td>Otto</td>
+                    <td>12</td>
+                    <td><input type="radio" name="arbreSelect"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      
+            <!-- Boutons -->
+            <div class="text-center">
+              <button class="btn btn-primary me-2">Prédire cluster</button>
+              <button class="btn btn-primary">Prédire l'âge</button>
+            </div>
+          </div>
+        
+        
+        
+        
+        <!-- Scripts de fonctionnement de Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous" defer></script>
+        <!-- Page de script du projet -->
+        <script src="./src/script/index.js" type="text/javascript" defer></script>
+    </body>
+</html>
