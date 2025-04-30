@@ -1,4 +1,4 @@
-/*Générer grâce à Chat GPT*/
+/*Générer avec Chat GPT*/
 
 -- Création des tables de référence
 

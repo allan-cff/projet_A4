@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Index</title>
+        <!-- Page de style de bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+        <!-- Page de style du projet -->
+        <link href="./src/style/index.css" rel="stylesheet">
+    </head>
+    <body>
+      <!-- Navbar commune aux différentes pages -->
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="index.html" >Accueil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="addTree.html" style="font-weight: bold;">Ajouter un arbre </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Visualisation des Arbres </a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+        
+        <div class="container py-5">
+            <h2 class="text-center mb-4">Ajouter un arbre</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="espece" class="form-label">Espèce</label>
+                        <input type="text" class="form-control" id="espece" placeholder="Espèce" list="especes">
+                        <datalist id="especes">
+                            
+                        </datalist>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="stade" class="form-label">Stade développement</label>
+                        <input type="text" class="form-control" id="stade" placeholder="Stade développement" list="stades">
+                        <datalist id="stades">
+                            
+                        </datalist>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="hauteurTotale" class="form-label">Hauteur totale</label>
+                        <input type="text" class="form-control" id="hauteurTotale" placeholder="Hauteur totale">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="typePort" class="form-label">Type de port</label>
+                        <input type="text" class="form-control" id="typePort" placeholder="Type de port" list="typesPort">
+                        <datalist id="typesPort">
+                            
+                        </datalist>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="hauteurTronc" class="form-label">Hauteur tronc</label>
+                        <input type="text" class="form-control" id="hauteurTronc" placeholder="Hauteur tronc">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="typePied" class="form-label">Type pied</label>
+                        <input type="text" class="form-control" id="typePied" placeholder="Type pied" list="typesPied">
+                        <datalist id="typesPied">
+                            
+                        </datalist>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="diametreTronc" class="form-label">Diamètre tronc</label>
+                        <input type="text" class="form-control" id="diametreTronc" placeholder="Diamètre tronc">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="etatArbre" class="form-label">État de l'arbre</label>
+                        <input type="text" class="form-control" id="etatArbre" placeholder="État de l'arbre" list="etatsArbre">
+                        <datalist id="etatsArbre">
+                            <option value="Bon">
+                            <option value="Moyen">
+                            <option value="Mauvais">
+                        </datalist>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="latitude" class="form-label">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" placeholder="Latitude">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="remarquable" class="form-label">Remarquable</label>
+                        <input type="text" class="form-control" id="remarquable" placeholder="Remarquable" list="remarquableList">
+                        <datalist id="remarquableList">
+                            <option value="oui">
+                            <option value="non">
+                        </datalist>
+                    </div>
+                </div>
+        
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="longitude" class="form-label">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" placeholder="Longitude">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="vivant" class="form-label">Vivant</label>
+                        <input type="text" class="form-control" id="vivant" placeholder="Vivant" list="vivantList">
+                        <datalist id="vivantList">
+                            <option value="oui">
+                            <option value="non">
+                        </datalist>
+                    </div>
+                </div>
+        
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+            </form>
+        </div>
+        
+        
+        
+        
+        <!-- Scripts de fonctionnement de Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous" defer></script>
+        <!-- Page de script du projet -->
+        <script src="./src/script/index.js" type="text/javascript" defer></script>
+    </body>
+</html>
