@@ -7,7 +7,7 @@ externalDocs:
   description: Repo Github
   url: https://github.com/allan-cff/projet_A4
 servers:
-  - url: http://https://etu0915.projets.isen-ouest.info/
+  - url: http://https://etu0915.projets.isen-ouest.info
 tags:
   - name: tree
     description: Requêtes de manipulation des arbres
@@ -28,7 +28,7 @@ paths:
       tags:
         - tree
       summary: Récupérer les arbres
-      description: Retrieves a list of trees.
+      description: Récupère une liste de tous les arbres de la base de données.
       operationId: getTrees
       responses:
         '200':
@@ -52,10 +52,10 @@ paths:
       tags:
         - tree
       summary: Ajouter un nouvel arbre à la base de données
-      description: Add a new tree, specifying all its information.
+      description: Ajoute un nouvel arbre en spécifiant toutes ses informations et renvoie l'id du nouvel arbre
       operationId: addTree
       requestBody:
-        description: Tree information
+        description: Les informations de l'arbre (taille, hauteur, etc) et les id de son espèce, état, stade, port et pied
         required: true
         content:
           application/json:
@@ -76,15 +76,16 @@ paths:
       tags:
         - tree
       summary: Prédire l'âge de l'arbre
-      description: Predicts tree age based on height.
+      description: Prédis l'âge de l'arbre en fonction de la hauteur totale.
       operationId: predictAge
       parameters:
-        - name: height
+        - name: totalHeight
           in: query
-          description: Tree height in meters
+          description: La hauteur totale de l'arbre en m
           required: false
           schema:
-            type: integer
+            type: number
+            format: float
             default: 0
       responses:
         '200':
@@ -92,9 +93,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NewTree'
+                $ref: '#/components/schemas/AgePrediction'
         '400':
           description: Invalid query parameter
         default:
@@ -109,15 +108,24 @@ paths:
       tags:
         - tree
       summary: Prédire le cluster de l'arbre
-      description: Predicts tree age based on height.
+      description: Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
       operationId: predictCluster
       parameters:
-        - name: height
+        - name: totalHeight
           in: query
-          description: Tree height in meters
+          description: La hauteur totale de l'arbre en m
+          required: false
+          schema:
+            type: number
+            format: float
+            default: 0
+        - name: trunkDiameter
+          in: query
+          description: Le diamètre du tronc de l'arbre en mm
           required: false
           schema:
             type: integer
+            format: int32
             default: 0
       responses:
         '200':
@@ -125,9 +133,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NewTree'
+                $ref: '#/components/schemas/ClusterPrediction'
         '400':
           description: Invalid query parameter
         default:
@@ -194,6 +200,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      tags:
+        - species
+      summary: Ajouter une nouvelle espèce à la base de données
+      description: Ajoute une nouvelle espèce à la base de donnée et renvoie son id
+      operationId: addSpecies
+      requestBody:
+        description: Contient le nom de l'espèce à créer
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSpecies'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        '400':
+          description: Invalid input
                 
   /state:
     get:
@@ -467,6 +495,14 @@ components:
           type: integer
         name:
           type: string
+
+    NewSpecies:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
           
     State:
       required:
@@ -512,6 +548,24 @@ components:
           
         name:
           type: string
+
+    AgePrediction:
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          type: number
+          format: float
+
+    ClusterPrediction:
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          type: integer
+          format: int32
           
     Success:
       required:
@@ -532,11 +586,3 @@ components:
           type: string
         message:
           type: string
-
-  requestBodies:
-    Tree:
-      description: Tree object to add to the database
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Tree'
