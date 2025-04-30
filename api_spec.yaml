@@ -7,10 +7,20 @@ externalDocs:
   description: Repo Github
   url: https://github.com/allan-cff/projet_A4
 servers:
-  - url: https://isen-de-merde
+  - url: http://https://etu0915.projets.isen-ouest.info/
 tags:
   - name: tree
     description: Requêtes de manipulation des arbres
+  - name: species
+    description: Requêtes de manipulation des espèces
+  - name: states
+    description: Requêtes de manipulation des états
+  - name: dev
+    description: Requêtes de manipulation des stades de développement
+  - name : port
+    description: Requêtes de manipulation des ports
+  - name : pied
+    description: Requêtes de manipulation des pieds
 
 paths:
   /tree:
@@ -50,14 +60,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tree'
+              $ref: '#/components/schemas/NewTree'
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TreeSuccess'
+                $ref: '#/components/schemas/Success'
         '400':
           description: Invalid input
 
@@ -84,7 +94,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Tree'
+                  $ref: '#/components/schemas/NewTree'
         '400':
           description: Invalid query parameter
         default:
@@ -117,7 +127,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Tree'
+                  $ref: '#/components/schemas/NewTree'
         '400':
           description: Invalid query parameter
         default:
@@ -131,8 +141,8 @@ paths:
     get:
       tags:
         - tree
-      summary: Récupérer un arbre depuis son ID
-      description: Returns a single tree by its ID.
+      summary: Récupérer un arbre depuis son id
+      description: Récupère un arbre depuis son id avec toutes ses informations peuplées.
       operationId: getTree
       parameters:
         - name: id
@@ -148,7 +158,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Tree'
+                $ref: '#/components/schemas/TreeData'
         '400':
           description: Invalid ID supplied
         '404':
@@ -159,38 +169,358 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+                
+  /species:
+    get:
+      tags:
+        - species
+      summary: Récupérer les espèces
+      description: Récupère la liste des espèces d'arbre et leur id
+      operationId: getSpecies
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Species'
+        '400':
+          description: Invalid request
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /state:
+    get:
+      tags:
+        - states
+      summary: Récupérer les arbres
+      description: Récupère la liste des états des arbres et leur id
+      operationId: getStates
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/State'
+        '400':
+          description: Invalid request
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+                
+  /dev:
+    get:
+      tags:
+        - dev
+      summary: Récupérer les arbres
+      description: Récupère la liste de stades de développement des arbres et leur id
+      operationId: getDevs
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dev'
+        '400':
+          description: Invalid request
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /port:
+    get:
+      tags:
+        - port
+      summary: Récupérer les arbres
+      description: Récupère la liste de tous les ports d'arbre et leur id
+      operationId: getPorts
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Port'
+        '400':
+          description: Invalid request
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                
+  /pied:
+    get:
+      tags:
+        - pied
+      summary: Récupérer les arbres
+      description: Récupère la liste de tous les types de pieds d'arbre et leur id
+      operationId: getPieds
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pied'
+        '400':
+          description: Invalid request
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
+    NewTree:
+      required:
+        - totalHeight
+        - trunkHeight
+        - trunkDiameter
+        - isRemarkable
+        - lat
+        - long
+        - age
+        - speciesId
+        - stateId
+        - devId
+        - portId
+        - piedId
+      type: object
+      properties:
+        totalHeight:
+          type: number
+          format: float
+        trunkHeight:
+          type: number
+          format: float
+        trunkDiameter:
+          type: number
+          format: float
+        isRemarkable:
+          type: boolean
+        lat:
+          type: number
+          format: float
+        long:
+          type: number
+          format: float
+        age:
+          type: integer
+          format: int32
+        speciesId:
+          type: integer
+          format: int32
+        stateId:
+          type: integer
+          format: int32
+        devId:
+          type: integer
+          format: int32
+        portId:
+          type: integer
+          format: int32
+        piedId:
+          type: integer
+          format: int32
+
     Tree:
       required:
+        - id
+        - totalHeight
+        - trunkHeight
+        - trunkDiameter
+        - isRemarkable
+        - lat
+        - long
+        - age
+        - speciesId
+        - stateId
+        - devId
+        - portId
+        - piedId
+        
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        totalHeight:
+          type: number
+          format: float
+        trunkHeight:
+          type: number
+          format: float
+        trunkDiameter:
+          type: number
+          format: float
+        isRemarkable:
+          type: boolean
+        lat:
+          type: number
+          format: float
+        long:
+          type: number
+          format: float
+        age:
+          type: integer
+          format: int32
+        speciesId:
+          type: integer
+          format: int32
+        stateId:
+          type: integer
+          format: int32
+        devId:
+          type: integer
+          format: int32
+        portId:
+          type: integer
+          format: int32
+        piedId:
+          type: integer
+          format: int32
+          
+    TreeData:
+      required:
+        - totalHeight
+        - trunkHeight
+        - trunkDiameter
+        - isRemarkable
+        - lat
+        - long
+        - age
+        - species
+        - state
+        - dev
+        - port
+        - pied
+      type: object
+      properties:
+        specieId:
+          type: integer
+          format: int32
+        totalHeight:
+          type: number
+          format: float
+        trunkHeight:
+          type: number
+          format: float
+        trunkDiameter:
+          type: number
+          format: float
+        isRemarkable:
+          type: boolean
+        lat:
+          type: number
+          format: float
+        long:
+          type: number
+          format: float
+        age:
+          type: integer
+          format: int32
+        species:
+          $ref: '#/components/schemas/Species'
+        state:
+          $ref: '#/components/schemas/State'
+        dev:
+          $ref: '#/components/schemas/Dev'
+        port:
+          $ref: '#/components/schemas/Port'
+        pied:
+          $ref: '#/components/schemas/Pied'
+      
+    Species:
+      required:
+        - id
         - name
       type: object
       properties:
         id:
           type: integer
-          format: int64
-          example: 10
         name:
           type: string
-          example: chêne
-        photoUrls:
-          type: array
-          items:
-            type: string
-            format: uri
-          example: ["https://example.com/images/tree1.jpg"]
-
-    TreeSuccess:
+          
+    State:
+      required:
+        - id
+        - name
       type: object
       properties:
-        code:
+        id:
+          type: integer
+        name:
+          type: string
+          
+    Dev:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          
+    Port:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          
+    Pied:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          
+        name:
+          type: string
+          
+    Success:
+      required:
+        - id
+      type: object
+      properties:
+        id:
           type: integer
           format: int32
-        type:
-          type: string
-        message:
-          type: string
 
     Error:
       type: object
