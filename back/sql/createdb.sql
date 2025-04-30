@@ -1,4 +1,4 @@
-/*Générer avec Chat GPT*/
+-- Générer avec Chat GPT
 
 -- Création des tables de référence
 
@@ -27,6 +27,11 @@ CREATE TABLE TypePied (
     libellePied VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE Cluster (
+    idCluster INT PRIMARY KEY,
+    libelleCluster VARCHAR(100) NOT NULL
+);
+
 -- Table principale : Arbre
 
 CREATE TABLE Arbre (
@@ -40,18 +45,17 @@ CREATE TABLE Arbre (
     longitude DECIMAL(9,6),
     age INT,
 
-    -- Clés étrangères
     idEspece INT,
     idStadeDev INT,
     idPort INT,
     idEtat INT,
     idPied INT,
+    idCluster INT,
 
-    FOREIGN KEY (idEspece) REFERENCES Espece(idEspece),
-    FOREIGN KEY (idStadeDev) REFERENCES StadeDev(idStadeDev),
-    FOREIGN KEY (idPort) REFERENCES TypePort(idPort),
-    FOREIGN KEY (idEtat) REFERENCES Etat(idEtat),
-    FOREIGN KEY (idPied) REFERENCES TypePied(idPied)
+    CONSTRAINT fk_arbre_espece FOREIGN KEY (idEspece) REFERENCES Espece(idEspece),
+    CONSTRAINT fk_arbre_stade FOREIGN KEY (idStadeDev) REFERENCES StadeDev(idStadeDev),
+    CONSTRAINT fk_arbre_port FOREIGN KEY (idPort) REFERENCES TypePort(idPort),
+    CONSTRAINT fk_arbre_etat FOREIGN KEY (idEtat) REFERENCES Etat(idEtat),
+    CONSTRAINT fk_arbre_pied FOREIGN KEY (idPied) REFERENCES TypePied(idPied),
+    CONSTRAINT fk_arbre_cluster FOREIGN KEY (idCluster) REFERENCES Cluster(idCluster)
 );
-
-
