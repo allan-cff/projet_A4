@@ -33,24 +33,29 @@
 
         <div class="container py-5">
             <h2 class="text-center mb-4">Ajouter un arbre</h2>
-            <form>
+            <form id="addTreeForm">
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="espece" class="form-label">Espèce</label>
                         <input type="text" class="form-control" id="espece" placeholder="Espèce" list="especes">
                         <datalist id="especes">
-                            
+                            <option value="Chêne">
+                            <option value="Érable">
+                            <option value="Platane">
+                            <option value="Pin">
                         </datalist>
                     </div>
                     <div class="col-md-6">
                         <label for="stade" class="form-label">Stade développement</label>
-                        <input type="text" class="form-control" id="stade" placeholder="Stade développement" list="stades">
-                        <datalist id="stades">
-                            
-                        </datalist>
+                        <select class="form-select" id="stade">
+                            <option selected disabled>Choisir...</option>
+                            <option value="Jeune">Jeune</option>
+                            <option value="Mature">Mature</option>
+                            <option value="Vieux">Vieux</option>
+                        </select>
                     </div>
                 </div>
-
+        
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="hauteurTotale" class="form-label">Hauteur totale</label>
@@ -58,10 +63,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="typePort" class="form-label">Type de port</label>
-                        <input type="text" class="form-control" id="typePort" placeholder="Type de port" list="typesPort">
-                        <datalist id="typesPort">
-                            
-                        </datalist>
+                        <select class="form-select" id="typePort">
+                            <option selected disabled>Choisir...</option>
+                            <option value="Érigé">Érigé</option>
+                            <option value="Étalé">Étalé</option>
+                            <option value="Pleureur">Pleureur</option>
+                        </select>
                     </div>
                 </div>
         
@@ -72,10 +79,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="typePied" class="form-label">Type pied</label>
-                        <input type="text" class="form-control" id="typePied" placeholder="Type pied" list="typesPied">
-                        <datalist id="typesPied">
-                            
-                        </datalist>
+                        <select class="form-select" id="typePied">
+                            <option selected disabled>Choisir...</option>
+                            <option value="Isolé">Isolé</option>
+                            <option value="Aligné">Aligné</option>
+                            <option value="Groupe">Groupe</option>
+                        </select>
                     </div>
                 </div>
         
@@ -86,12 +95,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="etatArbre" class="form-label">État de l'arbre</label>
-                        <input type="text" class="form-control" id="etatArbre" placeholder="État de l'arbre" list="etatsArbre">
-                        <datalist id="etatsArbre">
-                            <option value="Bon">
-                            <option value="Moyen">
-                            <option value="Mauvais">
-                        </datalist>
+                        <select class="form-select" id="etatArbre">
+                            <option selected disabled>Choisir...</option>
+                            <option value="Bon">Bon</option>
+                            <option value="Moyen">Moyen</option>
+                            <option value="Mauvais">Mauvais</option>
+                        </select>
                     </div>
                 </div>
         
@@ -102,11 +111,10 @@
                     </div>
                     <div class="col-md-6">
                         <label for="remarquable" class="form-label">Remarquable</label>
-                        <input type="text" class="form-control" id="remarquable" placeholder="Remarquable" list="remarquableList">
-                        <datalist id="remarquableList">
-                            <option value="oui">
-                            <option value="non">
-                        </datalist>
+                        <select class="form-select" id="remarquable">
+                            <option>oui</option>
+                            <option selected>non</option>
+                        </select>
                     </div>
                 </div>
         
@@ -117,11 +125,10 @@
                     </div>
                     <div class="col-md-6">
                         <label for="vivant" class="form-label">Vivant</label>
-                        <input type="text" class="form-control" id="vivant" placeholder="Vivant" list="vivantList">
-                        <datalist id="vivantList">
-                            <option value="oui">
-                            <option value="non">
-                        </datalist>
+                        <select class="form-select" id="vivant">
+                            <option selected>oui</option>
+                            <option>non</option>
+                        </select>
                     </div>
                 </div>
         
@@ -130,9 +137,6 @@
                 </div>
             </form>
         </div>
-        
-        
-        
         
         <!-- Scripts de fonctionnement de Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous" defer></script>
