@@ -7,7 +7,7 @@ externalDocs:
   description: Repo Github
   url: https://github.com/allan-cff/projet_A4
 servers:
-  - url: http://https://etu0915.projets.isen-ouest.info
+  - url: http://etu0915.projets.isen-ouest.info
 tags:
   - name: tree
     description: Requêtes de manipulation des arbres
