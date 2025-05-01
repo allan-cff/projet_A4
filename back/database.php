@@ -2,7 +2,6 @@
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-require_once("constants.php");
 
 class database {
     static $db = null;
@@ -10,7 +9,7 @@ class database {
         if (self::$db != null) {
             return self::$db;
         }
-        require_once ("config.php");
+        require_once("constants.php");
         try {
             self::$db = new PDO('mysql:host='.DB_SERVER.';port='.DB_PORT.';dbname='.DB_NAME, DB_USER, DB_PWD);
         }
