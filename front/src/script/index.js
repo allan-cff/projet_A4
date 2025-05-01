@@ -16,7 +16,7 @@ function getTree(){
     xhr.setRequestHeader('Authorization', 'Basic ZXR1MDkxNTpvbmpjcG5haA==');
     console.log('afterexecution');
     xhr.onload= function() {
-        console.log('cc')
+        //console.log('cc')
         console.log(xhr.status);
         
         //console.log(xhr);
@@ -33,7 +33,7 @@ function getTree(){
 }
 
 // -----------------Insérer un nouvel arbre-------------//
-function addTree(){
+function addTree(tree){
     //Récupération des données : 
     var data_tree = {totalHeight : getElementById('hauteurTotale'), trunkHeight : getElementById('hauteurTronc'), trunkDiameter : getElementById('diametreTronc'), isRemarkable : getElementById('remarquable'), lat : getElementById('latitude'), long : getElementById('longitude'), age : 0, }
     // Récupération de l'url
@@ -59,7 +59,7 @@ function addTree(){
             console.log('error')
         }
     };
-    xhr.send();
+    xhr.send(`tree=${encodeURIComponent(tree)}`);
 }
 
 
