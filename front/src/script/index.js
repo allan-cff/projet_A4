@@ -380,6 +380,8 @@ function plotTreeOnArray(){
     arrayPort = getPort();
     arrayPied = getPieds();
     array = getTree();
+    console.log(getTree());
+
     const tbody = document.getElementById("arrayTree");
 
     
@@ -405,4 +407,6 @@ function plotTreeOnArray(){
     });
 }
 
-plotTreeOnArray();
+document.addEventListener("DOMContentLoaded", function () {
+    plotTreeOnArray();
+});
