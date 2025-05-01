@@ -65,4 +65,88 @@
             exit;
         }
     }
+
+    if($path[1] === 'species' && $_SERVER['REQUEST_METHOD'] === 'GET'){
+        $sqlRequest = "SELECT * FROM Espece";
+        $stmt = $db->prepare($sqlRequest);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = array();
+        foreach ($results as $row) {
+            array_push($response, array("id" => $row["idEspece"], "name" => $row["libelleEspece"]));
+        }
+        echo json_encode($response);
+        http_response_code(200);
+        exit;
+    }
+
+    if($path[1] === 'species' && $_SERVER['REQUEST_METHOD'] === 'POST'){
+        $sqlRequest = "SELECT * FROM Espece";
+        $stmt = $db->prepare($sqlRequest);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = array();
+        foreach ($results as $row) {
+            array_push($response, array("id" => $row["idEspece"], "name" => $row["libelleEspece"]));
+        }
+        echo json_encode($response);
+        http_response_code(200);
+        exit;
+    } 
+
+    if($path[1] === 'state'){
+        $sqlRequest = "SELECT * FROM Etat";
+        $stmt = $db->prepare($sqlRequest);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = array();
+        foreach ($results as $row) {
+            array_push($response, array("id" => $row["idEtat"], "name" => $row["libelleEtat"]));
+        }
+        echo json_encode($response);
+        http_response_code(200);
+        exit;
+    }
+
+    if($path[1] === 'dev'){
+        $sqlRequest = "SELECT * FROM StadeDev";
+        $stmt = $db->prepare($sqlRequest);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = array();
+        foreach ($results as $row) {
+            array_push($response, array("id" => $row["idStadeDev"], "name" => $row["libelleStadeDev"]));
+        }
+        echo json_encode($response);
+        http_response_code(200);
+        exit;
+    }
+
+    if($path[1] === 'port'){
+        $sqlRequest = "SELECT * FROM TypePort";
+        $stmt = $db->prepare($sqlRequest);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = array();
+        foreach ($results as $row) {
+            array_push($response, array("id" => $row["idPort"], "name" => $row["libellePort"]));
+        }
+        echo json_encode($response);
+        http_response_code(200);
+        exit;
+    }
+
+    if($path[1] === 'pied'){
+        $sqlRequest = "SELECT * FROM TypePied";
+        $stmt = $db->prepare($sqlRequest);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $response = array();
+        foreach ($results as $row) {
+            array_push($response, array("id" => $row["idPied"], "name" => $row["libellePied"]));
+        }
+        echo json_encode($response);
+        http_response_code(200);
+        exit;
+    }
 ?>
