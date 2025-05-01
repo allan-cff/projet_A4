@@ -54,6 +54,7 @@ function addTree(tree){
         if (xhr.status === 201) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             let result = JSON.parse(xhr.responseText);
             console.log('Invalid request');
@@ -84,6 +85,7 @@ function predictAge(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid query parameter');
         }else{
@@ -112,6 +114,7 @@ function predictCluster(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid query parameter');
         }else{
@@ -140,6 +143,7 @@ function getTreeById(id){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid query parameter');
         }else{
@@ -169,6 +173,7 @@ function getSpecies(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -196,6 +201,7 @@ function addSpecies(name){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -225,6 +231,7 @@ function getState(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -255,6 +262,7 @@ function getDev(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -284,6 +292,7 @@ function getPort(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -313,6 +322,7 @@ function getPieds(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -354,7 +364,45 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   //---------------------------------- Affichage ----------------------------------//
-function plotTreeOnArray(){
-    array = getTree();
-
+function findElement(id, array){
+    let i=0
+    while(array[i].id != id){
+        i++
+        if (i >= array.length) return "Inconnu";
+    }
+    return array[i].name
 }
+
+function plotTreeOnArray(){
+    arraySpaces = getSpecies();
+    arrayState = getState();
+    arrayDev = getDev();
+    arrayPort = getPort();
+    arrayPied = getPieds();
+    array = getTree();
+    const tbody = document.getElementById("arrayTree");
+
+    
+    array.forEach((tree, index) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${tree.id}</td>
+            <td>${findElement(tree.speciesId, arraySpaces)}</td>
+            <td>${tree.totalHeight}</td>
+            <td>${tree.trunkHeight}</td>
+            <td>${tree.trunkDiameter}</td>
+            <td>${tree.isRemarkable}</td>
+            <td>[${tree.lat}; ${tree.long}]</td>
+            <td>${findElement(tree.stateId, arrayState)}</td>
+            <td>${findElement(tree.devId, arrayDev)}</td>
+            <td>${findElement(tree.portId, arrayPort)}</td>
+            <td>${findElement(tree.piedId, arrayPied)}</td>
+            <td><input type="radio" name="arbreSelect" id="radio${tree.id}" value="${tree.id}"></td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+}
+
+plotTreeOnArray();
