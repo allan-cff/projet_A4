@@ -171,14 +171,19 @@
             exit;
         }
 
-        if(count($path) === 4 && $path[1] === 'predict' && $path[2] === 'cluster' && $_SERVER['REQUEST_METHOD'] === 'GET'){
-            $res = array("id" => 4);
-            echo json_encode($res);
+        if(count($path) === 4 && $path[2] === 'predict' && $path[3] === 'cluster' && $_SERVER['REQUEST_METHOD'] === 'GET'){
+            $output=null;
+            $retval=null;
+            echo 'python scripts/predict_cluster.py -n 2 -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'];
+            exec('python scripts/predict_cluster.py -n 2 -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'], $output, $retval);
+            echo "Returned with status $retval and output:\n";
+            print_r($output);
+            //echo json_encode($res);
             http_response_code(200);
             exit;
         }
 
-        if(count($path) === 4 && $path[1] === 'predict' && $path[2] === 'age' && $_SERVER['REQUEST_METHOD'] === 'GET'){
+        if(count($path) === 4 && $path[2] === 'predict' && $path[3] === 'age' && $_SERVER['REQUEST_METHOD'] === 'GET'){
             $res = array("id" => 5);
             echo json_encode($res);
             http_response_code(200);
@@ -201,16 +206,32 @@
     }
 
     if($path[1] === 'species' && $_SERVER['REQUEST_METHOD'] === 'POST'){
-        $sqlRequest = "SELECT * FROM Espece";
-        $stmt = $pdo->prepare($sqlRequest);
-        $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $response = array();
-        foreach ($results as $row) {
-            array_push($response, array("id" => $row["idEspece"], "name" => $row["libelleEspece"]));
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (!$data) {
+            http_response_code(400);
+            echo json_encode(["code" => 400, "message" => "Invalid JSON"]);
+            exit;
         }
-        echo json_encode($response);
-        http_response_code(200);
+        if (!isset($data["name"])) {
+            http_response_code(400);
+            echo json_encode(["code" => 400, "message" => "Missing field: name"]);
+            exit;
+        }
+        $sqlRequest = "INSERT INTO Espece (libelleEspece) VALUES (:name)";
+
+        $stmt = $pdo->prepare($sqlRequest);
+        // Lier les valeurs
+        $stmt->bindValue(':name', $data['name']);
+        try {
+            $stmt->execute();
+            $insertedId = $pdo->lastInsertId();
+            http_response_code(201);
+            echo json_encode(["id" => $insertedId]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(["error" => "Erreur d'insertion : " . $e->getMessage()]);
+        }
         exit;
     } 
 
@@ -228,7 +249,7 @@
         exit;
     }
 
-    if($path[1] === 'dev'){
+    if($path[1] === 'dev' && $_SERVER['REQUEST_METHOD'] === 'GET'){
         $sqlRequest = "SELECT * FROM StadeDev";
         $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
@@ -242,7 +263,7 @@
         exit;
     }
 
-    if($path[1] === 'port'){
+    if($path[1] === 'port' && $_SERVER['REQUEST_METHOD'] === 'GET'){
         $sqlRequest = "SELECT * FROM TypePort";
         $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
@@ -256,7 +277,7 @@
         exit;
     }
 
-    if($path[1] === 'pied'){
+    if($path[1] === 'pied' && $_SERVER['REQUEST_METHOD'] === 'GET'){
         $sqlRequest = "SELECT * FROM TypePied";
         $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
@@ -269,4 +290,6 @@
         http_response_code(200);
         exit;
     }
+    http_response_code(404);
+    exit;
 ?>
