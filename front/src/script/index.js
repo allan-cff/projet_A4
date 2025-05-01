@@ -318,3 +318,28 @@ function getPieds(){
     };
     xhr.send();
 }
+
+
+// Tu attends que la page soit complètement chargée
+window.addEventListener('DOMContentLoaded', () => {
+    const data = [{
+      type: 'scattermapbox',
+ 
+      mode: 'markers',
+      marker: { size: 12 }
+    }];
+  
+    const layout = {
+        mapbox: {
+          style: 'open-street-map',
+          center: { lat: 49.84889, lon: 3.28778 }, // Saint-Quentin
+          zoom: 13
+        },
+        width: 500,
+        height: 500,
+        margin: { t: 0, b: 0, l: 0, r: 0 }
+    };
+  
+    Plotly.newPlot('map', data, layout);
+  });
+  
