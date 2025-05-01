@@ -2,14 +2,14 @@ openapi: 3.0.4
 info:
   title: API Projet BigData/IA/Web groupe 1
   description: API permettant la gestion et l'analyse d'arbres via des méthodes Big Data et IA.
-  version: 1.0.2
+  version: 1.0.3
 externalDocs:
   description: Repo Github
   url: https://github.com/allan-cff/projet_A4
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/AllanCueff/projetA4/1.0.2
+    url: https://virtserver.swaggerhub.com/AllanCueff/projetA4/1.0.3
   - url: http://etu0915.projets.isen-ouest.info
 tags:
   - name: tree
@@ -422,6 +422,7 @@ components:
         - devId
         - portId
         - piedId
+        - clusterId
         
       type: object
       properties:
@@ -478,6 +479,7 @@ components:
         - dev
         - port
         - pied
+        - cluster
       type: object
       properties:
         specieId:

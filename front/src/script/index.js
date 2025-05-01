@@ -55,12 +55,14 @@ function addTree(tree){
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
         } else if(xhr.status ===400){
+            let result = JSON.parse(xhr.responseText);
             console.log('Invalid request');
+            console.log(result);
         }else{
             console.log('error')
         }
     };
-    xhr.send(`tree=${encodeURIComponent(tree)}`);
+    xhr.send(tree);
 }
 
 //Prédis l'âge de l'arbre en fonction de la hauteur totale.
