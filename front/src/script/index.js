@@ -375,13 +375,17 @@ function findElement(id, array){
 
 function plotTreeOnArray(){
     arraySpaces = getSpecies();
+    console.log(arraySpaces);
     arrayState = getState();
+    console.log(arrayState)
     arrayDev = getDev();
+    console.log(arrayDev)
     arrayPort = getPort();
+    console.log(arrayPort);
     arrayPied = getPieds();
+    console.log(getPieds)
     array = getTree();
     console.log(getTree());
-
     const tbody = document.getElementById("arrayTree");
 
     
