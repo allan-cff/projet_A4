@@ -15,7 +15,7 @@ def main():
 
     args = parser.parse_args()
 
-    filename = os.path.dirname(os.path.abspath(__file__))+"models/best_model.pkl"
+    filename = os.path.dirname(os.path.abspath(__file__))+"/models/best_model.pkl"
 
     best_model = joblib.load(filename)
 
