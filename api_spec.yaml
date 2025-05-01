@@ -2,11 +2,14 @@ openapi: 3.0.4
 info:
   title: API Projet BigData/IA/Web groupe 1
   description: API permettant la gestion et l'analyse d'arbres via des méthodes Big Data et IA.
-  version: 0.0.1
+  version: 1.0.2
 externalDocs:
   description: Repo Github
   url: https://github.com/allan-cff/projet_A4
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/AllanCueff/projetA4/1.0.2
   - url: http://etu0915.projets.isen-ouest.info
 tags:
   - name: tree
@@ -39,8 +42,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Tree'
-        '400':
-          description: Invalid request
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -62,7 +65,7 @@ paths:
             schema:
               $ref: '#/components/schemas/NewTree'
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
             application/json:
@@ -70,6 +73,18 @@ paths:
                 $ref: '#/components/schemas/Success'
         '400':
           description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
   /tree/predictAge:
     get:
@@ -95,7 +110,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/AgePrediction'
         '400':
-          description: Invalid query parameter
+          description: Invalid body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -135,7 +156,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClusterPrediction'
         '400':
-          description: Invalid query parameter
+          description: Invalid or missing query parameter
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -165,10 +188,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TreeData'
-        '400':
-          description: Invalid ID supplied
         '404':
           description: Tree not found
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -192,8 +215,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Species'
-        '400':
-          description: Invalid request
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -220,14 +243,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Success'
-        '400':
-          description: Invalid input
+        '500':
+          description: Internal server error
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
                 
   /state:
     get:
       tags:
         - states
-      summary: Récupérer les arbres
+      summary: Récupérer les états
       description: Récupère la liste des états des arbres et leur id
       operationId: getStates
       responses:
@@ -239,8 +268,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/State'
-        '400':
-          description: Invalid request
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -253,7 +282,7 @@ paths:
     get:
       tags:
         - dev
-      summary: Récupérer les arbres
+      summary: Récupérer la liste des stades de développement
       description: Récupère la liste de stades de développement des arbres et leur id
       operationId: getDevs
       responses:
@@ -265,8 +294,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Dev'
-        '400':
-          description: Invalid request
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -278,7 +307,7 @@ paths:
     get:
       tags:
         - port
-      summary: Récupérer les arbres
+      summary: Récupérer la liste des ports
       description: Récupère la liste de tous les ports d'arbre et leur id
       operationId: getPorts
       responses:
@@ -290,8 +319,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Port'
-        '400':
-          description: Invalid request
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
@@ -303,7 +332,7 @@ paths:
     get:
       tags:
         - pied
-      summary: Récupérer les arbres
+      summary: Récupérer la liste des pieds
       description: Récupère la liste de tous les types de pieds d'arbre et leur id
       operationId: getPieds
       responses:
@@ -315,8 +344,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Pied'
-        '400':
-          description: Invalid request
+        '500':
+          description: Internal server error
         default:
           description: Unexpected error
           content:
