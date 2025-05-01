@@ -22,7 +22,8 @@ function getTree(){
         //console.log(xhr);
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
-            console.log('successful operation')
+            console.log('successful operation');
+            return result;
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -35,14 +36,14 @@ function getTree(){
 // -----------------Insérer un nouvel arbre-------------//
 function addTree(tree){
     //Récupération des données : 
-    var data_tree = {totalHeight : getElementById('hauteurTotale'), trunkHeight : getElementById('hauteurTronc'), trunkDiameter : getElementById('diametreTronc'), isRemarkable : getElementById('remarquable'), lat : getElementById('latitude'), long : getElementById('longitude'), age : 0, }
+    tree = JSON.stringify(tree)
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree'               
     console.log(path);
 
     // requete AJAX : 
     var xhr = new XMLHttpRequest();
-    xhr.open('POSR', path, true);
+    xhr.open('POST', path, true);
     xhr.setRequestHeader('Authorization', 'Basic ZXR1MDkxNTpvbmpjcG5haA==');
     console.log('afterexecution');
     xhr.onload= function() {
@@ -50,7 +51,7 @@ function addTree(tree){
         console.log(xhr.status);
         
         //console.log(xhr);
-        if (xhr.status === 200) {
+        if (xhr.status === 201) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
         } else if(xhr.status ===400){
@@ -320,6 +321,10 @@ function getPieds(){
 }
 
 
+
+//----------------------------------MAP----------------------------------//
+
+
 // Tu attends que la page soit complètement chargée
 window.addEventListener('DOMContentLoaded', () => {
     const data = [{
@@ -343,3 +348,11 @@ window.addEventListener('DOMContentLoaded', () => {
     Plotly.newPlot('map', data, layout);
   });
   
+
+
+
+  //---------------------------------- Affichage ----------------------------------//
+function plotTreeOnArray(){
+    array = getTree();
+
+}
