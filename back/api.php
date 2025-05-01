@@ -174,20 +174,43 @@
         if(count($path) === 4 && $path[2] === 'predict' && $path[3] === 'cluster' && $_SERVER['REQUEST_METHOD'] === 'GET'){
             $output=null;
             $retval=null;
-            echo 'python scripts/predict_cluster.py -n 2 -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'];
+            if(!isset($_GET['trunkDiameter']) || !isset($_GET['totalHeight'])){
+                http_response_code(400);
+                echo json_encode(["code" => 400, "message" => "Missing params"]);
+                exit;
+            }
             exec('python scripts/predict_cluster.py -n 2 -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'], $output, $retval);
-            echo "Returned with status $retval and output:\n";
-            print_r($output);
-            //echo json_encode($res);
-            http_response_code(200);
-            exit;
+            if($retval === 0){
+                $response = array("value" =>$output[0]);
+                echo json_encode($response);
+                http_response_code(200);
+                exit;
+            } else {
+                http_response_code(400);
+                echo json_encode(["code" => 400, "message" => "Invalid params"]);
+                exit;
+            }
         }
 
         if(count($path) === 4 && $path[2] === 'predict' && $path[3] === 'age' && $_SERVER['REQUEST_METHOD'] === 'GET'){
-            $res = array("id" => 5);
-            echo json_encode($res);
-            http_response_code(200);
-            exit;
+            $output=null;
+            $retval=null;
+            if(!isset($_GET['trunkDiameter']) || !isset($_GET['trunkHeight']) || !isset($_GET['totalHeight'])){
+                http_response_code(400);
+                echo json_encode(["code" => 400, "message" => "Missing params"]);
+                exit;
+            }
+            exec('python scripts/predict_age.py -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'] . ' -r ' . $_GET['trunkHeight'], $output, $retval);
+            if($retval === 0){
+                $response = array("value" =>$output[0]);
+                echo json_encode($response);
+                http_response_code(200);
+                exit;
+            } else {
+                http_response_code(400);
+                echo json_encode(["code" => 400, "message" => "Invalid params"]);
+                exit;
+            }
         }
     }
 
