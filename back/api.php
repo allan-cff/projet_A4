@@ -1,21 +1,17 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Content-Type, Authorization");
-    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-    # Si c'est une requête OPTIONS
-    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        http_response_code(200);
-        exit();
-    }
-
-    require_once 'database.php';
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
+    
+    require_once("constants.php");
+    
+    try {
+        $pdo = new PDO('mysql:host='.DB_SERVER.';port='.DB_PORT.';dbname='.DB_NAME, DB_USER, DB_PWD);
+    }
+    catch (PDOException $exception) {
+        echo('Connection error: '.$exception->getMessage());
+    }
 
     $path = explode('/', $_SERVER['PATH_INFO']);
-
-    session_start();
 
     # POST /tree
     # GET /tree
@@ -51,14 +47,14 @@
             exit;
         }
 
-        if(count($path) === 3 && $path[1] === 'predict' && $path[1] === 'cluster' && $_SERVER['REQUEST_METHOD'] === 'GET'){
+        if(count($path) === 3 && $path[1] === 'predict' && $path[2] === 'cluster' && $_SERVER['REQUEST_METHOD'] === 'GET'){
             $res = array("id" => 4);
             echo json_encode($res);
             http_response_code(200);
             exit;
         }
 
-        if(count($path) === 3 && $path[1] === 'predict' && $path[1] === 'age' && $_SERVER['REQUEST_METHOD'] === 'GET'){
+        if(count($path) === 3 && $path[1] === 'predict' && $path[2] === 'age' && $_SERVER['REQUEST_METHOD'] === 'GET'){
             $res = array("id" => 5);
             echo json_encode($res);
             http_response_code(200);
@@ -68,7 +64,7 @@
 
     if($path[1] === 'species' && $_SERVER['REQUEST_METHOD'] === 'GET'){
         $sqlRequest = "SELECT * FROM Espece";
-        $stmt = $db->prepare($sqlRequest);
+        $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $response = array();
@@ -82,7 +78,7 @@
 
     if($path[1] === 'species' && $_SERVER['REQUEST_METHOD'] === 'POST'){
         $sqlRequest = "SELECT * FROM Espece";
-        $stmt = $db->prepare($sqlRequest);
+        $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $response = array();
@@ -94,9 +90,9 @@
         exit;
     } 
 
-    if($path[1] === 'state'){
+    if($path[1] === 'state' && $_SERVER['REQUEST_METHOD'] === 'GET'){
         $sqlRequest = "SELECT * FROM Etat";
-        $stmt = $db->prepare($sqlRequest);
+        $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $response = array();
@@ -110,7 +106,7 @@
 
     if($path[1] === 'dev'){
         $sqlRequest = "SELECT * FROM StadeDev";
-        $stmt = $db->prepare($sqlRequest);
+        $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $response = array();
@@ -124,7 +120,7 @@
 
     if($path[1] === 'port'){
         $sqlRequest = "SELECT * FROM TypePort";
-        $stmt = $db->prepare($sqlRequest);
+        $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $response = array();
@@ -138,7 +134,7 @@
 
     if($path[1] === 'pied'){
         $sqlRequest = "SELECT * FROM TypePied";
-        $stmt = $db->prepare($sqlRequest);
+        $stmt = $pdo->prepare($sqlRequest);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $response = array();
