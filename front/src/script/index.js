@@ -62,6 +62,89 @@ function addTree(tree){
     xhr.send(`tree=${encodeURIComponent(tree)}`);
 }
 
+//Prédis l'âge de l'arbre en fonction de la hauteur totale.
+function predictAge(){
+    // Récupération de l'url
+    let path = PATH_REQUEST + '/tree/predictAge'               
+    console.log(path);
+
+    // requete AJAX : 
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', path, true);
+    xhr.setRequestHeader('Authorization', 'Basic ZXR1MDkxNTpvbmpjcG5haA==');
+    console.log('afterexecution');
+    xhr.onload= function() {
+        //console.log('cc')
+        console.log(xhr.status);
+        
+        //console.log(xhr);
+        if (xhr.status === 200) {
+            let result = JSON.parse(xhr.responseText);
+            console.log('successful operation')
+        } else if(xhr.status ===400){
+            console.log('Invalid query parameter');
+        }else{
+            console.log('error')
+        }
+    };
+    xhr.send();
+}
+
+//Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
+function predictCluster(){
+    // Récupération de l'url
+    let path = PATH_REQUEST + '/tree/predictCluster'             
+    console.log(path);
+
+    // requete AJAX : 
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', path, true);
+    xhr.setRequestHeader('Authorization', 'Basic ZXR1MDkxNTpvbmpjcG5haA==');
+    console.log('afterexecution');
+    xhr.onload= function() {
+        //console.log('cc')
+        console.log(xhr.status);
+        
+        //console.log(xhr);
+        if (xhr.status === 200) {
+            let result = JSON.parse(xhr.responseText);
+            console.log('successful operation')
+        } else if(xhr.status ===400){
+            console.log('Invalid query parameter');
+        }else{
+            console.log('error')
+        }
+    };
+    xhr.send();
+}
+
+//Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
+function getTreeById(id){
+    // Récupération de l'url
+    let path = PATH_REQUEST + '/tree/' + id             
+    console.log(path);
+
+    // requete AJAX : 
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', path, true);
+    xhr.setRequestHeader('Authorization', 'Basic ZXR1MDkxNTpvbmpjcG5haA==');
+    console.log('afterexecution');
+    xhr.onload= function() {
+        //console.log('cc')
+        console.log(xhr.status);
+        
+        //console.log(xhr);
+        if (xhr.status === 200) {
+            let result = JSON.parse(xhr.responseText);
+            console.log('successful operation')
+        } else if(xhr.status ===400){
+            console.log('Invalid query parameter');
+        }else{
+            console.log('error')
+        }
+    };
+    xhr.send();
+}
 
 //----------------------------------SPECIES----------------------------------//
 
