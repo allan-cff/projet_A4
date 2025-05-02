@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("id").textContent = id;
         document.getElementById("speciesName").textContent = speciesName;
 
+        let googleMapsUrl = `https://www.google.com/maps/@${lat},${lon},15z`;
+        document.getElementById('ggmap').setAttribute('href', googleMapsUrl);
+
         predictAge(totalHeight, trunkDiameter, trunkHeight, function(response){
             const predictedAge = response.value; 
             console.log(predictedAge);
