@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const predictionBtn = document.getElementById("prediction");
 
   predictionBtn.addEventListener("click", function () {
-    const selectedRadio = document.querySelector('input[name="selectedTree"]:checked');
+    const selectedRadio = document.querySelector('input[name="arbreSelect"]:checked');
 
     if (selectedRadio) {
       const id = selectedRadio.value;
