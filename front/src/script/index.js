@@ -84,45 +84,50 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Soumission du formulaire
-    form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Empêche le rechargement de la page
+form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Empêche le rechargement de la page
 
-        // Récupérer les noms des options sélectionnées
-        const selectedSpeciesName = document.getElementById('espece').value;
-        const selectedDevName = document.getElementById('stade').value;
-        const selectedPortName = document.getElementById('typePort').value;
-        const selectedPiedName = document.getElementById('typePied').value;
-        const selectedStateName = document.getElementById('etatArbre').value;
+    // Récupérer les noms des options sélectionnées
+    const selectedSpeciesName = document.getElementById('espece').value;
+    const selectedDevName = document.getElementById('stade').value;
+    const selectedPortName = document.getElementById('typePort').value;
+    const selectedPiedName = document.getElementById('typePied').value;
+    const selectedStateName = document.getElementById('etatArbre').value;
 
-        // Récupérer les IDs correspondant aux noms
-        const speciesId = speciesMap[selectedSpeciesName];
-        const devId = devMap[selectedDevName];
-        const portId = portMap[selectedPortName];
-        const piedId = piedMap[selectedPiedName];
-        const stateId = stateMap[selectedStateName];
+    // Récupérer les IDs correspondant aux noms
+    const speciesId = speciesMap[selectedSpeciesName];
+    const devId = devMap[selectedDevName];
+    const portId = portMap[selectedPortName];
+    const piedId = piedMap[selectedPiedName];
+    const stateId = stateMap[selectedStateName];
 
-        // Créer l'objet 'tree' avec les IDs
+    const totalHeight = parseFloat(document.getElementById('hauteurTotale').value);
+    const trunkDiameter = parseFloat(document.getElementById('diametreTronc').value);
+
+    predictCluster(totalHeight, trunkDiameter, function(clusterResult) {
+
         const tree = {
             speciesId: speciesId,
             devId: devId,
-            totalHeight: parseFloat(document.getElementById('hauteurTotale').value),
+            totalHeight: totalHeight,
             portId: portId,
             trunkHeight: parseFloat(document.getElementById('hauteurTronc').value),
             piedId: piedId,
-            trunkDiameter: parseFloat(document.getElementById('diametreTronc').value),
+            trunkDiameter: trunkDiameter,
             stateId: stateId,
             lat: parseFloat(document.getElementById('latitude').value),
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
             age: 0,
-            clusterId : 0
+            clusterId: clusterResult.value
         };
 
         // Envoyer les données à l'API
         addTree(tree, function(result) {
             alert("Arbre ajouté avec succès !");
             console.log(result);
-            // form.reset(); // Réinitialise le formulaire
         });
     });
+});
+
 });
