@@ -124,7 +124,7 @@ function predictCluster(callback){
     xhr.send();
 }
 
-//Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
+//
 function getTreeById(id, callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree/' + id             
@@ -543,7 +543,8 @@ document.addEventListener('DOMContentLoaded', function () {
             lat: parseFloat(document.getElementById('latitude').value),
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
-            age: parseInt(document.getElementById('age').value)
+            age :10,
+            clusterId : 2
         };
           
 
