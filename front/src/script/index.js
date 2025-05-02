@@ -532,19 +532,20 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault(); // Empêche le rechargement de la page
 
         const tree = {
-            espece: document.getElementById('espece').value.trim(),
-            stade: document.getElementById('stade').value,
-            hauteurTotale: parseFloat(document.getElementById('hauteurTotale').value),
-            typePort: document.getElementById('typePort').value,
-            hauteurTronc: parseFloat(document.getElementById('hauteurTronc').value),
-            typePied: document.getElementById('typePied').value,
-            diametreTronc: parseFloat(document.getElementById('diametreTronc').value),
-            etat: document.getElementById('etatArbre').value,
-            latitude: parseFloat(document.getElementById('latitude').value),
-            longitude: parseFloat(document.getElementById('longitude').value),
-            remarquable: document.getElementById('remarquable').value === 'oui',
-            vivant: document.getElementById('vivant').value === 'oui'
+            speciesId: parseInt(document.getElementById('espece').value),
+            devId: parseInt(document.getElementById('stade').value),
+            totalHeight: parseFloat(document.getElementById('hauteurTotale').value),
+            portId: parseInt(document.getElementById('typePort').value),
+            trunkHeight: parseFloat(document.getElementById('hauteurTronc').value),
+            piedId: parseInt(document.getElementById('typePied').value),
+            trunkDiameter: parseFloat(document.getElementById('diametreTronc').value),
+            stateId: parseInt(document.getElementById('etatArbre').value),
+            lat: parseFloat(document.getElementById('latitude').value),
+            long: parseFloat(document.getElementById('longitude').value),
+            isRemarkable: document.getElementById('remarquable').value === 'oui',
+            age: parseInt(document.getElementById('age').value)
         };
+          
 
         addTree(tree, function(result) {
             alert("Arbre ajouté avec succès !");
