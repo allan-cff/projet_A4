@@ -68,13 +68,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const tree = {
             speciesId:  1, //parseInt(document.getElementById('espece').value),
-            devId: parseInt(document.getElementById('stade').value),
+            devId:  1,//parseInt(document.getElementById('stade').value),
             totalHeight: parseFloat(document.getElementById('hauteurTotale').value),
-            portId: parseInt(document.getElementById('typePort').value),
+            portId: 1,//parseInt(document.getElementById('typePort').value),
             trunkHeight: parseFloat(document.getElementById('hauteurTronc').value),
-            piedId: parseInt(document.getElementById('typePied').value),
+            piedId: 1,//parseInt(document.getElementById('typePied').value),
             trunkDiameter: parseFloat(document.getElementById('diametreTronc').value),
-            stateId: parseInt(document.getElementById('etatArbre').value),
+            stateId:1,// parseInt(document.getElementById('etatArbre').value),
             lat: parseFloat(document.getElementById('latitude').value),
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
