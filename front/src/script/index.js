@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault(); // Empêche le rechargement de la page
 
         const tree = {
-            speciesId: parseInt(document.getElementById('espece').value),
+            speciesId:  1, //parseInt(document.getElementById('espece').value),
             devId: parseInt(document.getElementById('stade').value),
             totalHeight: parseFloat(document.getElementById('hauteurTotale').value),
             portId: parseInt(document.getElementById('typePort').value),
