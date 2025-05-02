@@ -1,23 +1,24 @@
 window.addEventListener('DOMContentLoaded', () => {
     getTree(data => {
         const colorMap = {
-            "EN PLACE": "green",
-            "REMPLACE": "blue",
+            1: "blue",
+            2: "red",
+            3: "yellow"
         };
     
-        const uniqueStates = [...new Set(data.trees.map(tree => findElement(tree.stateId, data.states)))];
+        const clustersList = [...new Set(data.map(tree => tree.clusterId))];
     
-        const traces = uniqueStates.map(currentState => {
-            const filtered = data.trees.filter(tree => findElement(tree.stateId, data.states) === currentState);
+        const traces = clustersList.map(cluster => {
+            const filtered = data.filter(tree => tree.clusterId === cluster);
             return {
             type: 'scattermapbox',
             mode: 'markers',
-            name: currentState,
+            name: cluster,
             lat: filtered.map(p => p.lat),
             lon: filtered.map(p => p.long),
             marker: {
                 size: 10,
-                color: colorMap[currentState] || 'black'
+                color: colorMap[cluster] || 'black'
             }
             };
         });
@@ -33,6 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     
         console.log(traces);
-        Plotly.newPlot('map', traces, layout, { responsive: true });
+        Plotly.newPlot('mapCluster', traces, layout, { responsive: true });
     });
 });
