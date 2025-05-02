@@ -208,7 +208,7 @@
                 exit;
             } else {
                 http_response_code(400);
-                echo json_encode(["code" => 400, "message" => "Invalid params"]);
+                echo json_encode(["code" => 400, "message" => "Error code " . strval($retval)]);
                 exit;
             }
         }
