@@ -33,6 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     
         console.log(traces);
-        Plotly.newPlot('map', traces, layout, { responsive: true });
+        Plotly.newPlot('mapCluster', traces, layout, { responsive: true });
     });
 });
