@@ -114,8 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             lat: parseFloat(document.getElementById('latitude').value),
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
-            age: 10,
-            clusterId: 2
+            age: 0
         };
 
         // Envoyer les données à l'API
