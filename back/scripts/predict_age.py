@@ -5,9 +5,7 @@ import argparse
 import joblib
 import numpy as np
 import pandas as pd
-
-"haut_tot", "haut_tronc", "tronc_diam"
-
+import os
 
 def main():
     parser = argparse.ArgumentParser(description='Prends en entrée des caractéristiques d\'un arbre et renvoie le cluster de taille d\'arbre associé')
@@ -17,7 +15,7 @@ def main():
 
     args = parser.parse_args()
 
-    filename = "models/best_model.pkl"
+    filename = os.path.dirname(os.path.abspath(__file__))+"/models/best_model.pkl"
 
     best_model = joblib.load(filename)
 

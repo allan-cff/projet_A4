@@ -5,6 +5,7 @@ import argparse
 import joblib
 import numpy as np
 import pandas as pd
+import os
 
 def main():
     parser = argparse.ArgumentParser(description='Prends en entrée des caractéristiques d\'un arbre et renvoie le cluster de taille d\'arbre associé')
@@ -17,9 +18,9 @@ def main():
     filename = ""
 
     if(args.clusters == "2"):
-        filename = "models/kmeans_haut_tot_from_diam_tronc_2_clusters.pkl"
+        filename = os.path.dirname(os.path.abspath(__file__))+"/models/kmeans_haut_tot_from_diam_tronc_2_clusters.pkl"
     elif(args.clusters == "3"):
-        filename = "models/kmeans_haut_tot_from_diam_tronc_3_clusters.pkl"
+        filename = os.path.dirname(os.path.abspath(__file__))+"/models/kmeans_haut_tot_from_diam_tronc_3_clusters.pkl"
     else:
         return # error
 
