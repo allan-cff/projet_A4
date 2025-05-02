@@ -126,14 +126,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-
-
-// Appel initial pour commencer à récupérer les données et afficher les arbres
-
-window.addEventListener('DOMContentLoaded', () => {
-    getAllDatas().then(data => {
-        plotTreeOnTable(data);
-        showDataPointsOnMap(data);
-    })
-});

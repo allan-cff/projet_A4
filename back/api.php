@@ -91,7 +91,7 @@
             $stmt->bindValue(':idStadeDev', $data['devId']);
             $stmt->bindValue(':idPort', $data['portId']);
             $stmt->bindValue(':idPied', $data['piedId']);
-            $stmt->bindValue(':idCluster', 1);
+            $stmt->bindValue(':idCluster', $data['clusterId']);
             try {
                 $stmt->execute();
                 $insertedId = $pdo->lastInsertId();
