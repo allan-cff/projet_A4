@@ -186,9 +186,10 @@ function getSpecies(callback){
 //Ajoute une nouvelle espèce à la base de donnée et renvoie son id
 function addSpecies(name, callback){
     // Récupération de l'url
+
     let path = PATH_REQUEST + '/species'               
     console.log(path);
-
+    name = json.stringify({"name" : name})
     // requete AJAX : 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', path, true);
@@ -208,7 +209,7 @@ function addSpecies(name, callback){
             console.log('error')
         }
     };
-    xhr.send(`nom=${encodeURIComponent(name)}`);
+    xhr.send(name);
 }
 
 //----------------------------------STATES----------------------------------//
