@@ -105,7 +105,7 @@ form.addEventListener('submit', function (e) {
     const trunkDiameter = parseFloat(document.getElementById('diametreTronc').value);
 
     predictCluster(totalHeight, trunkDiameter, function(clusterResult) {
-        
+
         const tree = {
             speciesId: speciesId,
             devId: devId,
@@ -119,7 +119,7 @@ form.addEventListener('submit', function (e) {
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
             age: 0,
-            clusterId: clusterResult.clusterId // Assure-toi que c’est bien ce nom dans la réponse
+            clusterId: clusterResult.value
         };
 
         // Envoyer les données à l'API
