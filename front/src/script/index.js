@@ -103,18 +103,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Créer l'objet 'tree' avec les IDs
         const tree = {
-            speciesId: speciesId,  // ID de l'espèce
-            devId: devId,          // ID du stade
+            speciesId: speciesId,
+            devId: devId,
             totalHeight: parseFloat(document.getElementById('hauteurTotale').value),
-            portId: portId,        // ID du port
+            portId: portId,
             trunkHeight: parseFloat(document.getElementById('hauteurTronc').value),
-            piedId: piedId,        // ID du pied
+            piedId: piedId,
             trunkDiameter: parseFloat(document.getElementById('diametreTronc').value),
-            stateId: stateId,      // ID de l'état
+            stateId: stateId,
             lat: parseFloat(document.getElementById('latitude').value),
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
-            age: 0
+            age: 0,
+            clusterId : 0
         };
 
         // Envoyer les données à l'API
