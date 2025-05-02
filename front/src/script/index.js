@@ -5,7 +5,7 @@ console.log('js trouvé' + PATH_REQUEST)
 //----------------------------------TREE----------------------------------//
 
 //Requete récupération de tous les arbres et toutes leurs valeurs
-function getTree(){
+function getTree(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree'               
     console.log(path);
@@ -23,7 +23,7 @@ function getTree(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation');
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -34,7 +34,7 @@ function getTree(){
 }
 
 // -----------------Insérer un nouvel arbre-------------//
-function addTree(tree){
+function addTree(tree, callback){
     //Récupération des données : 
     tree = JSON.stringify(tree)
     // Récupération de l'url
@@ -54,7 +54,7 @@ function addTree(tree){
         if (xhr.status === 201) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             let result = JSON.parse(xhr.responseText);
             console.log('Invalid request');
@@ -67,7 +67,7 @@ function addTree(tree){
 }
 
 //Prédis l'âge de l'arbre en fonction de la hauteur totale.
-function predictAge(){
+function predictAge(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree/predictAge'               
     console.log(path);
@@ -85,7 +85,7 @@ function predictAge(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid query parameter');
         }else{
@@ -96,7 +96,7 @@ function predictAge(){
 }
 
 //Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
-function predictCluster(){
+function predictCluster(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree/predictCluster'             
     console.log(path);
@@ -114,7 +114,7 @@ function predictCluster(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid query parameter');
         }else{
@@ -125,7 +125,7 @@ function predictCluster(){
 }
 
 //Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
-function getTreeById(id){
+function getTreeById(id, callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree/' + id             
     console.log(path);
@@ -143,7 +143,7 @@ function getTreeById(id){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid query parameter');
         }else{
@@ -156,7 +156,7 @@ function getTreeById(id){
 //----------------------------------SPECIES----------------------------------//
 
 //Récupère la liste des espèces d'arbre et leur id
-function getSpecies(){
+function getSpecies(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/species'               
     console.log(path);
@@ -173,7 +173,7 @@ function getSpecies(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -184,7 +184,7 @@ function getSpecies(){
 }
 
 //Ajoute une nouvelle espèce à la base de donnée et renvoie son id
-function addSpecies(name){
+function addSpecies(name, callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/species'               
     console.log(path);
@@ -201,7 +201,7 @@ function addSpecies(name){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -214,7 +214,7 @@ function addSpecies(name){
 //----------------------------------STATES----------------------------------//
 
 //Récupère la liste des états des arbres et leur id
-function getState(){
+function getState(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/state'               
     console.log(path);
@@ -231,7 +231,7 @@ function getState(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -245,7 +245,7 @@ function getState(){
 //----------------------------------DEV----------------------------------//
 
 //Récupère la liste de stades de développement des arbres et leur id
-function getDev(){
+function getDev(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/dev'               
     console.log(path);
@@ -262,7 +262,7 @@ function getDev(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -275,7 +275,7 @@ function getDev(){
 //----------------------------------PORT----------------------------------//
 
 //Récupère la liste de tous les ports d'arbre et leur id
-function getPort(){
+function getPort(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/port'               
     console.log(path);
@@ -292,7 +292,7 @@ function getPort(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -305,7 +305,7 @@ function getPort(){
 //----------------------------------PIED----------------------------------//
 
 //Récupère la liste de tous les types de pieds d'arbre et leur id
-function getPieds(){
+function getPieds(callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/pied'               
     console.log(path);
@@ -322,7 +322,7 @@ function getPieds(){
         if (xhr.status === 200) {
             let result = JSON.parse(xhr.responseText);
             console.log('successful operation')
-            return result;
+            callback(result);
         } else if(xhr.status ===400){
             console.log('Invalid request');
         }else{
@@ -373,44 +373,68 @@ function findElement(id, array){
     return array[i].name
 }
 
-function plotTreeOnArray(){
-    arraySpaces = getSpecies();
-    console.log(arraySpaces);
-    arrayState = getState();
-    console.log(arrayState)
-    arrayDev = getDev();
-    console.log(arrayDev)
-    arrayPort = getPort();
-    console.log(arrayPort);
-    arrayPied = getPieds();
-    console.log(getPieds)
-    array = getTree();
-    console.log(getTree());
-    const tbody = document.getElementById("arrayTree");
+function plotTreeOnArray() {
+    console.log("Début du processus de récupération des données.");
 
-    
-    array.forEach((tree, index) => {
-        const tr = document.createElement("tr");
+    // Première requête : récupérer les espèces
+    getSpecies(function(arraySpecies) {
+        console.log("Espèces récupérées : ", arraySpecies);
 
-        tr.innerHTML = `
-            <td>${tree.id}</td>
-            <td>${findElement(tree.speciesId, arraySpaces)}</td>
-            <td>${tree.totalHeight}</td>
-            <td>${tree.trunkHeight}</td>
-            <td>${tree.trunkDiameter}</td>
-            <td>${tree.isRemarkable}</td>
-            <td>[${tree.lat}; ${tree.long}]</td>
-            <td>${findElement(tree.stateId, arrayState)}</td>
-            <td>${findElement(tree.devId, arrayDev)}</td>
-            <td>${findElement(tree.portId, arrayPort)}</td>
-            <td>${findElement(tree.piedId, arrayPied)}</td>
-            <td><input type="radio" name="arbreSelect" id="radio${tree.id}" value="${tree.id}"></td>
-        `;
+        // Deuxième requête : récupérer les états des arbres
+        getState(function(arrayState) {
+            console.log("États récupérés : ", arrayState);
 
-        tbody.appendChild(tr);
+            // Troisième requête : récupérer les stades de développement
+            getDev(function(arrayDev) {
+                console.log("Stades de développement récupérés : ", arrayDev);
+
+                // Quatrième requête : récupérer les types de port
+                getPort(function(arrayPort) {
+                    console.log("Types de port récupérés : ", arrayPort);
+
+                    // Cinquième requête : récupérer les types de pied
+                    getPieds(function(arrayPied) {
+                        console.log("Types de pieds récupérés : ", arrayPied);
+
+                        // Dernière requête : récupérer les arbres eux-mêmes
+                        getTree(function(arrayTree) {
+                            console.log("Arbres récupérés : ", arrayTree);
+
+                            // Une fois toutes les données récupérées, on peut afficher les arbres
+                            const tbody = document.getElementById("arrayTree");
+                            console.log("Affichage des arbres dans le tableau");
+
+                            arrayTree.forEach((tree) => {
+                                console.log("Traitement de l'arbre avec ID : ", tree.id);
+
+                                const tr = document.createElement("tr");
+                                tr.innerHTML = `
+                                    <td>${tree.id}</td>
+                                    <td>${findElement(tree.speciesId, arraySpecies)}</td>
+                                    <td>${tree.totalHeight}</td>
+                                    <td>${tree.trunkHeight}</td>
+                                    <td>${tree.trunkDiameter}</td>
+                                    <td>${tree.isRemarkable}</td>
+                                    <td>[${tree.lat}; ${tree.long}]</td>
+                                    <td>${findElement(tree.stateId, arrayState)}</td>
+                                    <td>${findElement(tree.devId, arrayDev)}</td>
+                                    <td>${findElement(tree.portId, arrayPort)}</td>
+                                    <td>${findElement(tree.piedId, arrayPied)}</td>
+                                    <td><input type="radio" name="arbreSelect" id="radio${tree.id}" value="${tree.id}"></td>
+                                `;
+                                tbody.appendChild(tr);
+                            });
+                        });
+                    });
+                });
+            });
+        });
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    plotTreeOnArray();
-});
+// Appel initial pour commencer à récupérer les données et afficher les arbres
+plotTreeOnArray();
+
+
+// Appel initial pour commencer à récupérer les données et afficher les arbres
+plotTreeOnArray();
