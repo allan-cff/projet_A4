@@ -1,42 +1,130 @@
 //----------------------------------MAP----------------------------------//
 
 function showDataPointsOnMap(data) {
+  let layout = {
+    mapbox: {
+      style: 'open-street-map',
+      center: { lat: 49.84889, lon: 3.28778 }, // Saint-Quentin
+      zoom: 13
+    },
+    legend: { orientation: 'h' },
+    margin: { t: 0, b: 0, l: 0, r: 0 }
+  };
 
-    const colorMap = {
-      "EN PLACE": "green",
-      "REMPLACE": "blue",
-    };
+  Plotly.newPlot('map', [{
+    type: 'scattermapbox',
+    mode: 'markers',
+    name: "Arbres",
+    lat: data.trees.map(tree => tree.lat),
+    lon: data.trees.map(tree => tree.long),
+    marker: {
+      size: 10,
+      color: 'green'
+    }
+  },], layout, { responsive: true });
+}
 
-    const uniqueStates = [...new Set(data.trees.map(tree => findElement(tree.stateId, data.states)))];
-
-    const traces = uniqueStates.map(currentState => {
-      const filtered = data.trees.filter(tree => findElement(tree.stateId, data.states) === currentState);
-      return {
+function updateMap(data, mapVersion="all") {
+  let layout = {};
+  switch(mapVersion){
+    case "all":
+      layout = {
+        mapbox: {
+          style: 'open-street-map',
+          center: { lat: 49.84889, lon: 3.28778 }, // Saint-Quentin
+          zoom: 13
+        },
+        legend: { orientation: 'h' },
+        margin: { t: 0, b: 0, l: 0, r: 0 }
+      };
+    
+      Plotly.react('map', [{
         type: 'scattermapbox',
         mode: 'markers',
-        name: currentState,
-        lat: filtered.map(p => p.lat),
-        lon: filtered.map(p => p.long),
+        name: "Arbres",
+        lat: data.trees.map(tree => tree.lat),
+        lon: data.trees.map(tree => tree.long),
         marker: {
           size: 10,
-          color: colorMap[currentState] || 'black'
+          color: 'green'
         }
+      },], layout);
+      break;
+    case "state":
+      const colorMap = {
+        "EN PLACE": "green",
+        "REMPLACE": "blue",
       };
-    });
 
-    const layout = {
-      mapbox: {
-        style: 'open-street-map',
-        center: { lat: 49.84889, lon: 3.28778 }, // Saint-Quentin
-        zoom: 13
-      },
-      legend: { orientation: 'h' },
-      margin: { t: 0, b: 0, l: 0, r: 0 }
-    };
+      const uniqueStates = [...new Set(data.trees.map(tree => findElement(tree.stateId, data.states)))];
 
-    console.log(traces);
-    Plotly.newPlot('map', traces, layout, { responsive: true });
+      const traces = uniqueStates.map(currentState => {
+        const filtered = data.trees.filter(tree => findElement(tree.stateId, data.states) === currentState);
+        return {
+          type: 'scattermapbox',
+          mode: 'markers',
+          name: currentState,
+          lat: filtered.map(p => p.lat),
+          lon: filtered.map(p => p.long),
+          marker: {
+            size: 10,
+            color: colorMap[currentState] || 'black'
+          }
+        };
+      });
+
+      layout = {
+        mapbox: {
+          style: 'open-street-map',
+          center: { lat: 49.84889, lon: 3.28778 }, // Saint-Quentin
+          zoom: 13
+        },
+        legend: { orientation: 'h' },
+        margin: { t: 0, b: 0, l: 0, r: 0 }
+      };
+
+      Plotly.react('map', traces, layout);
+      break;
+    case "age":
+      const ages = data.trees.map(tree => tree.age).filter(age => age !== null && age !== undefined);
+      const lats = data.trees.map(tree => tree.lat);
+      const lons = data.trees.map(tree => tree.long);
+
+      const ageTrace = {
+        type: 'scattermapbox',
+        mode: 'markers',
+        name: 'Âge',
+        lat: lats,
+        lon: lons,
+        marker: {
+          size: 10,
+          color: ages,
+          colorscale: 'Viridis',  // tu peux choisir aussi: 'Jet', 'Portland', 'Turbo', etc.
+          colorbar: {
+            title: 'Âge (ans)',
+            titleside: 'right'
+          },
+          cmin: Math.min(...ages),
+          cmax: Math.max(...ages)
+        },
+        text: ages.map(age => `Âge: ${age} ans`),
+        hoverinfo: 'text'
+      };
+
+      layout = {
+        mapbox: {
+          style: 'open-street-map',
+          center: { lat: 49.84889, lon: 3.28778 },
+          zoom: 13
+        },
+        legend: { orientation: 'h' },
+        margin: { t: 0, b: 0, l: 0, r: 0 }
+      };
+
+      Plotly.react('map', [ageTrace], layout);
+      break;
   }
+}
 
   //----------------------------------TABLE----------------------------------//
 
@@ -124,6 +212,23 @@ window.addEventListener('DOMContentLoaded', () => {
     getAllDatas().then(data => {
         plotTreeOnTable(data);
         showDataPointsOnMap(data);
+        document.querySelectorAll('#SelectAffichage input').forEach(radio => {
+          radio.addEventListener('change', e => {
+              if(e.target.checked){
+                switch(e.target.id){
+                  case "allTreesMap":
+                    updateMap(data, "all");
+                    break;
+                  case "treesByStateMap":
+                    updateMap(data, "state");
+                    break;
+                  case "treesAgesMap":
+                    updateMap(data, "age");
+                    break;
+                }
+              }
+          })
+        })
     })
 });
 
