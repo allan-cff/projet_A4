@@ -66,7 +66,7 @@ function addTree(tree, callback){
 }
 
 //Prédis l'âge de l'arbre en fonction de la hauteur totale.
-function predictAge(callback){
+function predictAge(totalHeight, trunkDiameter, trunkHeight, callback){
     // Récupération de l'url
     let path = PATH_REQUEST + '/tree/predict/age'               
     console.log(path);

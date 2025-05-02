@@ -126,3 +126,19 @@ window.addEventListener('DOMContentLoaded', () => {
         showDataPointsOnMap(data);
     })
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const predictionBtn = document.getElementById("prediction");
+
+  predictionBtn.addEventListener("click", function () {
+    const selectedRadio = document.querySelector('input[name="selectedTree"]:checked');
+
+    if (selectedRadio) {
+      const id = selectedRadio.value;
+      window.location.href = `predictAge.html?id=${id}`;
+    } else {
+      alert("Veuillez sélectionner un arbre.");
+    }
+  });
+});
