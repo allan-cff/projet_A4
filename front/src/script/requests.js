@@ -95,9 +95,9 @@ function predictAge(totalHeight, trunkDiameter, trunkHeight, callback){
 }
 
 //Prédis le cluster de l'arbre en fonction de sa heuteur totale et de sa largeur de tronc.
-function predictCluster(callback){
+function predictCluster(totalHeight, trunkDiameter, callback){
     // Récupération de l'url
-    let path = PATH_REQUEST + '/tree/predictCluster'             
+    let path = PATH_REQUEST + '/tree/predict/cluster?totalHeight=' +totalHeight + '&trunkDiameter=' + trunkDiameter;               
     console.log(path);
 
     // requete AJAX : 
