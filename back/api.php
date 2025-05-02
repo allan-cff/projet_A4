@@ -179,9 +179,9 @@
                 echo json_encode(["code" => 400, "message" => "Missing params"]);
                 exit;
             }
-            exec('python scripts/predict_cluster.py -n 2 -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'], $output, $retval);
+            exec('python scripts/predict_cluster.py -n 3 -d ' . $_GET['trunkDiameter'] . ' -t ' . $_GET['totalHeight'], $output, $retval);
             if($retval === 0){
-                $response = array("value" =>$output[0]);
+                $response = array("value" =>$output[0] + 1);
                 echo json_encode($response);
                 http_response_code(200);
                 exit;
