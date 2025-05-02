@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         addTree(tree, function(result) {
             alert("Arbre ajouté avec succès !");
-            form.reset(); // Réinitialise le formulaire
+            console.log(result)
+            //form.reset(); // Réinitialise le formulaire
         });
     });
 });
