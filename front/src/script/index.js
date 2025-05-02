@@ -1,5 +1,11 @@
 // ----------------- Insertion -------------//
 
+let speciesMap = {};
+let devMap = {};
+let portMap = {};
+let piedMap = {};
+let stateMap = {};
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('addTreeForm');
 
@@ -11,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const option = document.createElement('option');
             option.value = species.name;
             datalist.appendChild(option);
+
+            // Associer le nom de l'espèce à son ID
+            speciesMap[species.name] = species.id;
         });
     });
 
@@ -23,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
             option.value = dev.name;
             option.textContent = dev.name;
             select.appendChild(option);
+
+            // Associer le nom du stade à son ID
+            devMap[dev.name] = dev.id;
         });
     });
 
@@ -35,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
             option.value = port.name;
             option.textContent = port.name;
             select.appendChild(option);
+
+            // Associer le nom du port à son ID
+            portMap[port.name] = port.id;
         });
     });
 
@@ -47,6 +62,9 @@ document.addEventListener('DOMContentLoaded', function () {
             option.value = pied.name;
             option.textContent = pied.name;
             select.appendChild(option);
+
+            // Associer le nom du pied à son ID
+            piedMap[pied.name] = pied.id;
         });
     });
 
@@ -59,6 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
             option.value = state.name;
             option.textContent = state.name;
             select.appendChild(option);
+
+            // Associer l'état à son ID
+            stateMap[state.name] = state.id;
         });
     });
 
@@ -66,30 +87,46 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (e) {
         e.preventDefault(); // Empêche le rechargement de la page
 
+        // Récupérer les noms des options sélectionnées
+        const selectedSpeciesName = document.getElementById('espece').value;
+        const selectedDevName = document.getElementById('stade').value;
+        const selectedPortName = document.getElementById('typePort').value;
+        const selectedPiedName = document.getElementById('typePied').value;
+        const selectedStateName = document.getElementById('etatArbre').value;
+
+        // Récupérer les IDs correspondant aux noms
+        const speciesId = speciesMap[selectedSpeciesName];
+        const devId = devMap[selectedDevName];
+        const portId = portMap[selectedPortName];
+        const piedId = piedMap[selectedPiedName];
+        const stateId = stateMap[selectedStateName];
+
+        // Créer l'objet 'tree' avec les IDs
         const tree = {
-            speciesId:  1, //parseInt(document.getElementById('espece').value),
-            devId:  1,//parseInt(document.getElementById('stade').value),
+            speciesId: speciesId,  // ID de l'espèce
+            devId: devId,          // ID du stade
             totalHeight: parseFloat(document.getElementById('hauteurTotale').value),
-            portId: 1,//parseInt(document.getElementById('typePort').value),
+            portId: portId,        // ID du port
             trunkHeight: parseFloat(document.getElementById('hauteurTronc').value),
-            piedId: 1,//parseInt(document.getElementById('typePied').value),
+            piedId: piedId,        // ID du pied
             trunkDiameter: parseFloat(document.getElementById('diametreTronc').value),
-            stateId:1,// parseInt(document.getElementById('etatArbre').value),
+            stateId: stateId,      // ID de l'état
             lat: parseFloat(document.getElementById('latitude').value),
             long: parseFloat(document.getElementById('longitude').value),
             isRemarkable: document.getElementById('remarquable').value === 'oui',
-            age :10,
-            clusterId : 2
+            age: 10,
+            clusterId: 2
         };
-          
 
+        // Envoyer les données à l'API
         addTree(tree, function(result) {
             alert("Arbre ajouté avec succès !");
-            console.log(result)
-            //form.reset(); // Réinitialise le formulaire
+            console.log(result);
+            // form.reset(); // Réinitialise le formulaire
         });
     });
 });
+
 
 
 // Appel initial pour commencer à récupérer les données et afficher les arbres
