@@ -433,6 +433,36 @@ function plotTreeOnArray() {
     });
 }
 
+// ----------------- Insertion -------------//
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('addTreeForm');
+
+    form.addEventListener('submit', function (e) {
+        form.reset();
+        e.preventDefault(); // Empêche le rechargement de la page
+
+        const tree = {
+            espece: document.getElementById('espece').value.trim(),
+            stade: document.getElementById('stade').value,
+            hauteurTotale: parseFloat(document.getElementById('hauteurTotale').value),
+            typePort: document.getElementById('typePort').value,
+            hauteurTronc: parseFloat(document.getElementById('hauteurTronc').value),
+            typePied: document.getElementById('typePied').value,
+            diametreTronc: parseFloat(document.getElementById('diametreTronc').value),
+            etat: document.getElementById('etatArbre').value,
+            latitude: parseFloat(document.getElementById('latitude').value),
+            longitude: parseFloat(document.getElementById('longitude').value),
+            remarquable: document.getElementById('remarquable').value === 'oui',
+            vivant: document.getElementById('vivant').value === 'oui'
+        };
+        addTree(tree, function(result) {
+            alert("Arbre ajouté avec succès !");
+            form.reset(); // Réinitialise le formulaire
+        });
+    });
+});
+
 // Appel initial pour commencer à récupérer les données et afficher les arbres
 plotTreeOnArray();
 
